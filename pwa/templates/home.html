@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load static %}
+{% block content %}
+
+    <div class="header-sec" style="background-image: url({% static 'Images/hero-final.png' %})">
+    <div class="container">
+    <div class="row">
+
+     <div class="col-md-7">
+     <div class="upparallel-txt">
+        {% placeholder "Heading" %}
+     </div>    
+     </div>
+
+
+
+     <div class="col-md-5" id="form_redirect">
+
+     <div class="fom-box">
+     <!-- <img src="{% static 'Images/form_banner.png' %}">     -->
+     <p>
+        Register Now & <span>Get 20% Discount</span>
+     </p>
+
+     <form id="login" method="post">
+         {% csrf_token %}
+     <label>Name</label><br>    
+     {{contact_form.name}}<br>
+     <label>Email</label><br>
+     {{contact_form.email}}<br>
+     <label>Number</label><br>
+     {{contact_form.phone_number}}<br>
+     <label>Academic Level</label><br>
+     {{contact_form.academic_level}}
+
+      <div class="select-jumbo-box">
+        
+        <div class="select-box">
+        <label>Services</label><br>
+        {{contact_form.service_type}}
+        </div>
+
+        <div class="select-box">
+         <label>Words</label><br>
+         {{contact_form.word_count}}
+          </div>
+
+      </div>
+      <button type="submit" class="btn-submit">Submit</button>
+     </form>  
+     </div> 
+
+    </div>   
+
+    </div>
+    </div>   
+    </div>
+
+
+    <div class="second-sec" style="background-image: url({% static 'Images/why_us_bg.png' %})">
+    <div class="container">
+    <div class="row">
+        {% placeholder "why us" %}
+    </div>    
+    </div>    
+    </div>
+
+
+    <div class="third-sec" style="background-image: url({% static 'Images/service_bg.png' %})">
+    <div class="container">
+    <div class="row">
+        {% placeholder "services" %}
+
+
+
+</div>
+</div>    
+</div>
+
+ 
+   <div class="fourth-sec" style="background-image: url({% static 'Images/service_bg_2.png' %})">
+   <div class="container">
+   <div class="row">
+    {% placeholder "custom_columns" %}
+   </div>    
+   </div>
+   </div> 
+
+   <div class="fifth-sec">
+   <div class="container gbp-img" style="background-image: url({% static 'Images/get_the_best_price.png' %})">
+    <div class="row">
+        {% placeholder "Ge the best price" %}
+   </div>    
+   </div>
+   </div>
+
+
+
+   <div class="six-sec" style="background-image: url({% static 'Images/review-background.png' %})">
+   <div class="container">
+    <div class="row">
+        {% placeholder "reviews" %}
+   <div class="col-md-2"></div>
+
+
+
+
+   <div class="col-md-8">
+    <div class="py.5 c8" id="slider demo">
+    <div class="owl-carousel owl-theme">
+      {% for review in reviews %}  
+    <div class="rev-slide-box">
+    <div class="review-slider">
+    <h2>{{review.name}}</h2>
+    
+    <h5>{{review.title}}</h5>
+    <span>{{review.rating}}</span>
+    <img src="{{review.rating_img}}" >
+</div>
+    
+    <p>"{{review.description}}"</p>
+    <h6>Order ID: {{review.order_id}}</h6>
+    </div>
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+    
+
+
+
+    
+
+   <div class="col-md-2"></div>
+
+   </div>   
+   </div> 
+   </div>  
+   
+   
+
+   <div class="seven-sec">
+   <div class="container pay-sec-bg" style="background-image: url({% static 'Images/payment-secur-bg.png' %})">
+   <div class="row">
+    {% placeholder "Payment_secure" %}
+
+   <div class="col-md-5"></div>
+
+   </div>    
+   </div>    
+   </div>
+
+
+  <div class="eight-sec">
+  <div class="container">
+  <div class="row">
+        {% placeholder "card_slide" %}
+</div>    
+</div> 
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+
+$('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:1
+            },
+            1000:{
+                items:1
+            }
+        }
+})
+
+
+$('.owl-carousel2').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:false,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:1
+            },
+            1000:{
+                items:1
+            }
+        }
+})
+</script>
+
+
+<script>
+
+    const phoneInputField = document.querySelector("#id_phone_number");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+    utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    $(document).ready(function(){
+    $("#success_message").css({"opacity": "1"});
+    setTimeout(function(){
+    $("#success_message").css({"opacity": "0"});
+    }, 3000);
+    setTimeout(function(){
+    $("#success_message").css({"display": "none"});
+    }, 4000);
+    });
+
+    $("#id_phone_number").keypress(function(){
+        $(".iti__flag.iti__us").addClass("iti_us_img");
+});
+</script>
+
+
+<script>
+    function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+    </script>
+{% endblock content %}

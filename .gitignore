@@ -1,0 +1,19 @@
+.venv/*
+.env
+.vscode
+.pyc
+*.pyc
+.cpython-37.pyc
+images/*
+venv
+logs/
+static/
+cache/
+db.sqlite3
+.ipynb_checkpoints/*
+andablog/*
+.env_prod
+temporary files/.ipynb_checkpoints/*
+.Rhistory
+venv/*
+.vercel

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load static %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block content %}
+{% placeholder "nav" %}
+<div class="six-sec review">
+    <div class="container">
+        <div class="row">
+            {% for review in reviews %}
+            <div class="col-md-6">
+                <div class="rev-slide-box">
+
+                    <div class="review-slider">
+                        <h2>{{review.name}}</h2>
+
+                        <h5>{{review.title}}</h5>
+                        <span>{{review.rating}}</span>
+                        <img src="{{review.rating_img}}">
+                    </div>
+
+                    <p>{{review.description}}</p>
+                    <h6>Order ID: {{review.order_id}}</h6>
+                </div>
+            </div>
+            {% endfor %}
+
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

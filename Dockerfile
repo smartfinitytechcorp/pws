@@ -44,4 +44,4 @@ RUN mkdir -p staticfiles
 # COPY static/ /app/static/
 
 # Collect static files
-RUN python manage.py collectstatic --noinput --clear
+# RUN python manage.py collectstatic --noinput --clear

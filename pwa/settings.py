@@ -24,12 +24,12 @@ BASE_DIR = str(Path(__file__).resolve().parent.parent)
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'tgm($668wptv_3$ad@16ewl1ty3^ipodepo_*_)e9z&g24drw6'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'tgm($668wptv_3$ad@16ewl1ty3^ipodepo_*_)e9z&g24drw6')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 
 # Application definition
@@ -89,8 +89,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
-STATIC_ROOT = os.path.join(DATA_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'pwa', 'static'),
@@ -261,16 +261,15 @@ local = False
 
 
 DATABASES = {
-        'default': {
-            'CONN_MAX_AGE': 0,
-            'ENGINE': 'django.db.backends.sqlite3',
-            'HOST': 'localhost',
-            'NAME': 'project.db',
-            'PASSWORD': '',
-            'PORT': '',
-            'USER': ''
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_DATABASE', 'pws'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
+        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
+}
 
 
 THUMBNAIL_PROCESSORS = (
@@ -279,3 +278,14 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters'
 )
+
+# Security settings
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True

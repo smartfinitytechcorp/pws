@@ -4,7 +4,8 @@ services:
     env: python
     buildCommand: |
       pip install -r requirements.txt
-      python manage.py collectstatic --noinput
+      mkdir -p static
+      python manage.py collectstatic --noinput --clear
     startCommand: gunicorn pwa.wsgi:application
     envVars:
       - key: PYTHON_VERSION
@@ -21,6 +22,8 @@ services:
         fromDatabase:
           name: pwa-db
           property: connectionString
+      - key: DJANGO_SETTINGS_MODULE
+        value: pwa.settings
 
 databases:
   - name: pwa-db

@@ -36,12 +36,3 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 EXPOSE 8000
 
 CMD ["/docker-entrypoint.sh"]
-
-# Create necessary directories
-RUN mkdir -p staticfiles
-
-# Copy static files
-# COPY static/ /app/static/
-
-# Collect static files
-# RUN python manage.py collectstatic --noinput --clear
